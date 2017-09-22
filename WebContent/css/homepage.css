@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+form {
+	margin: 0px 15px;
+}
+
+.divider {
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
