@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.bridgelabz.BankDAO.BankDAO;
 import com.bridgelabz.BankDAO.UserDAO;
 import com.bridgelabz.Model.User;
 
@@ -29,7 +28,7 @@ public class Login extends HttpServlet {
 
 		UserDAO userdao = new UserDAO();
 		String name = userdao.loginUser(email, password);
-		System.out.println("User name -->" + name);
+		System.out.println("User name-->" + name);
 		if (name != "false") {
 
 			HttpSession session = req.getSession();

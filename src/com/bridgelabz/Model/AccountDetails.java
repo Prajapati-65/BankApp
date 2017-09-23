@@ -2,8 +2,8 @@ package com.bridgelabz.Model;
 
 public class AccountDetails {
 
-	private String name, email, city;
-	private int id, accountnumber,userId;
+	private String name, email, accountnumber,city;
+	private int id,userId;
 
 	public String getName() {
 		return name;
@@ -37,14 +37,16 @@ public class AccountDetails {
 		this.id = id;
 	}
 
-	public int getAccountnumber() {
+
+	
+	public String getAccountnumber() {
 		return accountnumber;
 	}
 
-	public void setAccountnumber(int accountnumber) {
+	public void setAccountnumber(String accountnumber) {
 		this.accountnumber = accountnumber;
 	}
-	
+
 	public int getUserId() {
 		return userId;
 	}
@@ -55,8 +57,8 @@ public class AccountDetails {
 
 	@Override
 	public String toString() {
-		return "AccountDetails [name=" + name + ", email=" + email + ", city=" + city + ", id=" + id
-				+ ", accountnumber=" + accountnumber + ", userId=" + userId + "]";
+		return "AccountDetails [name=" + name + ", email=" + email + ", accountnumber=" + accountnumber + ", city="
+				+ city + ", id=" + id + ", userId=" + userId + "]";
 	}
 
 	

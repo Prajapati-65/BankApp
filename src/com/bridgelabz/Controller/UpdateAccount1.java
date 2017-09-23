@@ -1,7 +1,6 @@
 package com.bridgelabz.Controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
@@ -9,41 +8,44 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.bridgelabz.BankDAO.BankDAO;
 import com.bridgelabz.Model.AccountDetails;
 
-//@WebServlet("/AddAccountDetails")
-public class AddAccountDetails extends HttpServlet {
+//@WebServlet("/UpdateAccount")
+public class UpdateAccount extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		String emailid=(String) session.getAttribute("email");
-		int id = BankDAO.id(emailid);
-		session.setAttribute("id", id);
-		
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		String title = ("<br>" + "Your account is successful" + "</br>");
-		out.println(title);
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String city = req.getParameter("city");
 		String accountnumber = req.getParameter("accountnumber");
+		int id = Integer.parseInt(req.getParameter("id"));
+		// System.out.println("test id -->"+id+" name : "+name+" email :
+		// "+email+" city : "+city+" accountnumber :"+accountnumber);
 		AccountDetails account = new AccountDetails();
 		account.setName(name);
 		account.setEmail(email);
 		account.setCity(city);
 		account.setAccountnumber(accountnumber);
 		account.setUserId(id);
-		
+		System.out.println("test id -->" + id + " name : " + name + " email : " + email + " city : " + city
+				+ " accountnumber :" + accountnumber);
 		if (BankDAO.saveAccountData(account) > 0) {
+
+			int pid = BankDAO.updateAccount(id);
+			BankDAO bank = new BankDAO();
+			bank.editAccount(pid, name, email, city, accountnumber);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
 			dispatcher.forward(req, resp);
-		} else {
-			out.println("Sorry unable to save record");
+
 		}
+		RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
+		dispatcher.forward(req, resp);
 	}
+
 }

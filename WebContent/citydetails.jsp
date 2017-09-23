@@ -1,4 +1,5 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.bridgelabz.Model.AccountDetails"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,10 +15,10 @@
 </head>
 <body>
 	<%
-		List<AccountDetails> list = (List<AccountDetails>) request.getAttribute("list");
+		List<AccountDetails> list = (ArrayList<AccountDetails>) request.getAttribute("list");
 	%>
 	<table class="table table-hover">
-		<form method="get">
+		<form method="post">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -35,8 +36,8 @@
 				<td><a class="name"><%=account.getName()%></a></td>
 				<td><a class="email"><%=account.getEmail()%></a></td>
 				<td><a class="accountnumber"><%=account.getAccountnumber()%></a></td>
-				<td><button type="button" name="edit" onclick="return updateAccount('<%=account.getEmail()%>')" data-toggle="modal" data-target="#myModal"  class="btn btn-success">Edit</button></td>
-				<td><button type="submit" onclick="return deleteAccount('<%=account.getEmail()%>')"  class="btn btn-success">Delete</button></td>
+				<td><button type="button" name="edit" onclick="return updateAccount('<%=account.getId()%>')" data-toggle="modal" data-target="#editModel"  class="btn btn-success">Edit</button></td>
+				<td><button type="submit" onclick="return deleteAccount('<%=account.getId()%>')"  class="btn btn-success">Delete</button></td>
 			</tr>		
 		<%
 			}

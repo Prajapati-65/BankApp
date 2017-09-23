@@ -9,10 +9,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/apache-tomcat-util.jar"/>
-	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/jdbc.jar"/>
-	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/json-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/mysql-connector.jar"/>
 	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/servlet-api.jar"/>
-	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/com.mysql.jdbc_5.1.5.jar"/>
+	<classpathentry kind="lib" path="/home/bridgelabz/Downloads/file/jdbc.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -117,4 +117,14 @@
     <servlet-name>AccountView</servlet-name>
     <url-pattern>/AccountView</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateBank</display-name>
+    <servlet-name>UpdateBank</servlet-name>
+    <servlet-class>com.bridgelabz.Controller.UpdateBank</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateBank</servlet-name>
+    <url-pattern>/UpdateBank</url-pattern>
+  </servlet-mapping>
 </web-app>

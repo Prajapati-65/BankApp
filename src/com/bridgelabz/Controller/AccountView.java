@@ -20,7 +20,6 @@ public class AccountView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		resp.setContentType("text/html");
 		String city = req.getParameter("city");
 		PrintWriter printWriter = resp.getWriter();
@@ -29,7 +28,5 @@ public class AccountView extends HttpServlet {
 		req.setAttribute("list", list);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("citydetails.jsp");
 		dispatcher.forward(req, resp);
-		
 	}
-
 }

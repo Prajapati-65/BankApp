@@ -1,14 +1,12 @@
 package com.bridgelabz.BankDAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.buf.UEncoder;
+import org.json.simple.JSONObject;
 
 import com.bridgelabz.Model.AccountDetails;
 
@@ -40,7 +38,7 @@ public class BankDAO {
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getEmail());
 			ps.setString(3, account.getCity());
-			ps.setInt(4, account.getAccountnumber());
+			ps.setString(4, account.getAccountnumber());
 			ps.setInt(5, account.getUserId());
 			ps.executeUpdate();
 			status = 1;
@@ -49,7 +47,6 @@ public class BankDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
 		return status;
 	}
 
@@ -62,11 +59,11 @@ public class BankDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				AccountDetails account = new AccountDetails();
-				account.setId(rs.getInt(5));
+				account.setId(rs.getInt(1));
 				account.setName(rs.getString(2));
 				account.setEmail(rs.getString(3));
 				account.setCity(rs.getString(4));
-				account.setAccountnumber(rs.getInt(5));
+				account.setAccountnumber(rs.getString(5));
 				list.add(account);
 			}
 			con.close();
@@ -88,9 +85,12 @@ public class BankDAO {
 		}
 		return status;
 	}
+	
+	
 
-	public static int updateAccount(int id) {
-		int status = 0;
+	public static JSONObject updateAccount(int id) {
+	
+		JSONObject obj = new JSONObject();
 		PreparedStatement preparetatement = null;
 		try {
 			Connection con = UserDAO.getConnection();
@@ -99,20 +99,37 @@ public class BankDAO {
 			ResultSet rs = preparetatement.executeQuery();
 			if (rs.next()) {
 				String name = rs.getString("name");
-				String emailID = rs.getString("email");
+				String email = rs.getString("email");
 				String city = rs.getString("city");
-				int accountnumber = rs.getInt("accountnumber");
-				AccountDetails account = new AccountDetails();
-				account.setName(name);
-				account.setEmail(emailID);
-				account.setCity(city);
-				account.setAccountnumber(accountnumber);
+				String accountnumber = rs.getString("accountnumber");
+				
+				obj.put("name", name);
+				obj.put("email", email);
+				obj.put("city", city);
+				obj.put("accountnumber", accountnumber);
 				preparetatement.close();
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return status;
+		return obj;
 	}
 
+	public void editAccount(int id, String name, String email, String city, String accountnumber) {
+		try {
+			Connection con = UserDAO.getConnection();
+			String query = "update addaccount  set name=?, email=? ,city=?, accountnumber=? where id=?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(5, id);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			pstmt.setString(3, city);
+			pstmt.setString(4, accountnumber);
+			pstmt.executeUpdate();
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 }
