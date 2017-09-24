@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.bridgelabz.Model.AccountDetails;
@@ -102,11 +103,12 @@ public class BankDAO {
 				String email = rs.getString("email");
 				String city = rs.getString("city");
 				String accountnumber = rs.getString("accountnumber");
-				
 				obj.put("name", name);
 				obj.put("email", email);
 				obj.put("city", city);
 				obj.put("accountnumber", accountnumber);
+				JSONArray array = new JSONArray();
+				array.add(obj);
 				preparetatement.close();
 			}
 		} catch (Exception ex) {
