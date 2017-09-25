@@ -20,7 +20,6 @@ public class AddAccountDetails extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
 		HttpSession session = req.getSession();
 		String emailid=(String) session.getAttribute("email");
 		String id = BankDAO.id(emailid);
