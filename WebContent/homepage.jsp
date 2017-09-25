@@ -79,8 +79,7 @@
 					style="margin-top: 485px; float: right">+ Add</button>
 			</div>
 
-			<div class="modal fade" id="myModal" role="dialog"
-				style="z-index: 1060">
+			<div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -127,7 +126,70 @@
 					</div>
 				</div>
 			</div>
+			
+		
+		
+		
+		
+		
+		
+		
+			
+			<div class="modal fade" id="addModal" role="dialog" 
+				style="z-index: 1060">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Update Account</h4>
+						</div>
+						<form method="POST" action="AddAccountDetails" role="form">
+							<div class="form-group">
+								<label class="control-label" for="email">Enter the name</label>
+								<input id="nameID" name="name" type="text"
+									placeholder="Enter the name" class="form-control">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="name">Enter the email</label>
+								<input id="emailID" name="email" type="email" class="form-control"
+									placeholder="Enter the email">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="city">Select any city</label>
+								<div>
+									<select name="city" id="cityID" class="form-control">
+										<option selected disabled>City</option>
+										<option value="Mumbai">Mumbai</option>
+										<option value="Delhi">Delhi</option>
+										<option value="Bangalore">Bangalore</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="acconut">Enter account
+									number</label> <input id="accountnumberID" name="accountnumber"
+									type="text" placeholder="Enter account number"
+									class="form-control">
+							</div>
 
+							<div class="form-group">
+								<button id="submit" type="submit" name="submit"
+									class="btn btn-success" onClick="addAccount()" >Add</button>
+								<button id="close" type="button" name="close"
+									class="btn btn-success om" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
 			<div class="modal fade" id="cityModal" role="dialog"
 				style="z-index: 1050">
 				<div class="modal-dialog">
@@ -176,39 +238,41 @@
 		}
 		
 		
-
-		function autoRfesh() {
-			console.log($('#nameId').val());
+		function addAccount() {
+			console.log($('#name').val());
 			$.ajax({
 				url : 'UpdateAccount',
 				type : 'post',
 				data : {
-					name : $('#name').val(),
-					email : $('#email').val(),
-					city : $('#city').val(),
-					accountnumber : $('#accountnumber').val(),
+					name : $('#nameID').val(),
+					email : $('#emailID').val(),
+					city : $('#cityID').val(),
+					accountnumber : $('#accountnumberID').val(),
 					id : currentId
 				},
 				success : function() {
 					console.log("Added");
-					$('#name').val(""), $('#email').val(""),
-							$('#city').val(""), $('#accountnumber').val(""), $(
-									'#myModal').modal('hide');
+					$('#nameID').val(" "), 
+					$('#emailID').val(" "),
+					$('#cityID').val(" "), 
+					$('#accountnumberID').val(" "), 
+					$('#addModal').modal('hide');
 					if (edited == 1) {
 						displayCityData(currentCity);
 						edited = 0;
 					}
-					currentId = "0";
+					currentId = 0;
 				}
 			});
 		}
+		
 
 		function deleteAccount(id) {
 			$.ajax({
 				url : 'DeleteAccount',
 				type : 'post',
 				data : {
-					id : id
+					id : id,
 				},
 				success : function() {
 					displayCityData(currentCity);
@@ -223,89 +287,22 @@
 				url : 'UpdateAccount',
 				type : 'post',
 				dataType : 'JSON',
-				data : {
+				data :
+				{
 					id : id
 				},
-				success : function(result) {
-					console.log(result.email);
-					$('#name').val(result.name), $('#email').val(result.email),
-							$('#city').val(result.city), $('#accountnumber')
-									.val(result.accountnumber), $('#myModal')
-									.modal('show');
+				success : function(result) 
+				{	
+				$('#nameID').val(result.name), 
+				$('#emailID').val(result.email),
+				$('#cityID').val(result.city), 
+				$('#accountnumberID').val(result.accountnumber), 
+				$('#addModal').modal('show');
 				}
 			});
-		}
+		} 
 
-		/* 
 		
-			$(document).ready(function() {
-				var city = "";
-				var id;
-				console.log("Starting javascript");
-			});
-
-			function displayCityData(city) {
-				console.log("inside javascript");
-				$.ajax({
-					type : 'POST',
-					url : 'AccountView',
-					data : {
-						city : city
-					},
-					success : function(result) {
-						console.log("ajax success");
-						console.log(result);
-						$('#details-table').html(result);
-						$('#body-of-modal').html(result);
-						$('#cityModal').modal('show');
-					}
-				});
-			}
-			
-			
-			function updateAccount(id) {
-				console.log("Inside UpdateAccount javascript");
-				$.ajax({
-					url : 'UpdateAccount',
-					type : 'POST',
-					data : {
-						id : id,
-						name:$('#name').val(),
-						email:$('#email').val(),
-					    city:$('#city').val(),
-					    accountnumber:$('#accountnumber').val()
-					},
-					success : function(result) {
-						console.log("Update account")
-						$('#details-table').html(result);
-						$('#name').val(" "),
-						$('#email').val(" "),
-						$('#city').val(" "),
-						$('#accountnumber').val(" "),
-						$('#myModal').modal('show');
-					}
-				});
-			} 
-		 
-				function updateAccount(id) {
-			 	console.log("Inside UpdateAccount javascript");
-					$.ajax({
-						url : "UpdateAccount",
-						type : "POST",
-						data : {
-							id : id
-						},
-						success : function(result) {
-							$('#details-table').html(result);
-							$('#name').val(result.name),
-							$('#email').val(result.email),
-							$('#city').val(result.city),
-							$('#accountnumber').val(result.accountnumber),
-							$('#myModal').modal('show');
-						}
-					});
-				}
-		 */
 	</script>
 </body>
 </html>

@@ -19,6 +19,8 @@ public class AddAccountDetails extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
 		HttpSession session = req.getSession();
 		String emailid=(String) session.getAttribute("email");
 		int id = BankDAO.id(emailid);
@@ -39,11 +41,11 @@ public class AddAccountDetails extends HttpServlet {
 		account.setAccountnumber(accountnumber);
 		account.setUserId(id);
 		
-		if (BankDAO.saveAccountData(account) > 0) {
-			RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
-			dispatcher.forward(req, resp);
-		} else {
-			out.println("Sorry unable to save record");
-		}
+		BankDAO.saveAccountData(account);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
+		dispatcher.forward(req, resp);
+		
+		
+		
 	}
 }

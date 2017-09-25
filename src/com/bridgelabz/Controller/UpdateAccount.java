@@ -3,6 +3,7 @@ package com.bridgelabz.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,34 +24,18 @@ public class UpdateAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		String userId = req.getParameter("id");
-		
-		HttpSession session = req.getSession();
-		String email = (String) session.getAttribute("email");
-		int id = BankDAO.id(email);
-		JSONObject obj=BankDAO.updateAccount(Integer.parseInt(userId));
+		String accountId = req.getParameter("id");
+		JSONObject obj=BankDAO.updateAccount(Integer.parseInt(accountId));
 		out.print(obj.toJSONString());
 		
+		String name = (String) obj.get("name");
+		String email = (String) obj.get("email");
+		String city = (String) obj.get("city");
+		String accountnumber = (String) obj.get("accountnumber");
+
+		int pid = Integer.parseInt(accountId);
+		BankDAO.editAccount(pid, name, email, city, accountnumber);
 		
-		/*
-		if (userId.equals("0"))
-		{
-			HttpSession session = req.getSession();
-			String email = (String) session.getAttribute("email");
-			int id = BankDAO.id(email);
-			JSONObject obj=BankDAO.updateAccount(id);
-			out.print(obj.toJSONString());
-			
-			BankDAO bank = new BankDAO();
-			int pId=Integer.parseInt(userId);
-			
-			bank.editRow(pId, name, email,city ,accountnumber);
-			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
-			dispatcher.forward(req, resp);
-			
-		}
-		RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
-		dispatcher.forward(req, resp);*/
+		
 	}
 }

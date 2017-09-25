@@ -36,7 +36,7 @@
 				<td><a class="name"><%=account.getName()%></a></td>
 				<td><a class="email"><%=account.getEmail()%></a></td>
 				<td><a class="accountnumber"><%=account.getAccountnumber()%></a></td>
-				<td><button type="button" name="edit" onclick="return updateAccount('<%=account.getId()%>')" data-toggle="modal" data-target="#editModel"  class="btn btn-success">Edit</button></td>
+				<td><button type="button" name="edit" onclick="return updateAccount('<%=account.getId()%>')" data-toggle="modal" data-target="#addModal"  class="btn btn-success">Edit</button></td>
 				<td><button type="submit" onclick="return deleteAccount('<%=account.getId()%>')"  class="btn btn-success">Delete</button></td>
 			</tr>		
 		<%

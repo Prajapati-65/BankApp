@@ -90,7 +90,6 @@ public class BankDAO {
 	
 
 	public static JSONObject updateAccount(int id) {
-	
 		JSONObject obj = new JSONObject();
 		PreparedStatement preparetatement = null;
 		try {
@@ -117,7 +116,7 @@ public class BankDAO {
 		return obj;
 	}
 
-	public void editAccount(int id, String name, String email, String city, String accountnumber) {
+	public static void editAccount(int id, String name, String email, String city, String accountnumber) {
 		try {
 			Connection con = UserDAO.getConnection();
 			String query = "update addaccount  set name=?, email=? ,city=?, accountnumber=? where id=?";
