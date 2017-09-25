@@ -86,8 +86,6 @@ public class BankDAO {
 		}
 		return status;
 	}
-	
-	
 
 	public static JSONObject updateAccount(int id) {
 		JSONObject obj = new JSONObject();
@@ -115,22 +113,23 @@ public class BankDAO {
 		}
 		return obj;
 	}
-
-	public static void editAccount(int id, String name, String email, String city, String accountnumber) {
+	
+	public static void editAccount(int id) {
 		try {
 			Connection con = UserDAO.getConnection();
 			String query = "update addaccount  set name=?, email=? ,city=?, accountnumber=? where id=?";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(5, id);
-			pstmt.setString(1, name);
-			pstmt.setString(2, email);
-			pstmt.setString(3, city);
-			pstmt.setString(4, accountnumber);
+			AccountDetails account = new AccountDetails();
+			pstmt.setString(1, account.getName());
+			pstmt.setString(2, account.getEmail());
+			pstmt.setString(3, account.getCity());
+			pstmt.setString(4, account.getAccountnumber());
 			pstmt.executeUpdate();
 			con.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 }
