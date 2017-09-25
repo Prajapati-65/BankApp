@@ -126,16 +126,16 @@
 					</div>
 				</div>
 			</div>
-			
-		
-		
-		
-		
-		
-		
-		
-			
-			<div class="modal fade" id="addModal" role="dialog" 
+
+
+
+
+
+
+
+
+
+			<div class="modal fade" id="addModal" role="dialog"
 				style="z-index: 1060">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -151,8 +151,8 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="name">Enter the email</label>
-								<input id="emailID" name="email" type="email" class="form-control"
-									placeholder="Enter the email">
+								<input id="emailID" name="email" type="email"
+									class="form-control" placeholder="Enter the email">
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="city">Select any city</label>
@@ -174,7 +174,7 @@
 
 							<div class="form-group">
 								<button id="submit" type="submit" name="submit"
-									class="btn btn-success" onClick="addAccount()" >Add</button>
+									class="btn btn-success" onClick="addAccount()">Add</button>
 								<button id="close" type="button" name="close"
 									class="btn btn-success om" data-dismiss="modal">Close</button>
 							</div>
@@ -183,13 +183,13 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
 			<div class="modal fade" id="cityModal" role="dialog"
 				style="z-index: 1050">
 				<div class="modal-dialog">
@@ -218,14 +218,14 @@
 		var city = "";
 		var currentId = 0;
 		var edited = 0;
-
+		var id = "0";
 		function displayCityData(city) {
 			console.log("inside javascript");
 			$.ajax({
 				type : 'POST',
 				url : 'AccountView',
 				data : {
-					city : city
+					city : city,
 				},
 				success : function(result) {
 					console.log("ajax success");
@@ -236,8 +236,7 @@
 				}
 			});
 		}
-		
-		
+
 		function addAccount() {
 			console.log($('#name').val());
 			$.ajax({
@@ -252,11 +251,9 @@
 				},
 				success : function() {
 					console.log("Added");
-					$('#nameID').val(" "), 
-					$('#emailID').val(" "),
-					$('#cityID').val(" "), 
-					$('#accountnumberID').val(" "), 
-					$('#addModal').modal('hide');
+					$('#nameID').val(" "), $('#emailID').val(" "), $('#cityID')
+							.val(" "), $('#accountnumberID').val(" "), $(
+							'#addModal').modal('hide');
 					if (edited == 1) {
 						displayCityData(currentCity);
 						edited = 0;
@@ -265,7 +262,6 @@
 				}
 			});
 		}
-		
 
 		function deleteAccount(id) {
 			$.ajax({
@@ -287,22 +283,17 @@
 				url : 'UpdateAccount',
 				type : 'post',
 				dataType : 'JSON',
-				data :
-				{
+				data : {
 					id : id
 				},
-				success : function(result) 
-				{	
-				$('#nameID').val(result.name), 
-				$('#emailID').val(result.email),
-				$('#cityID').val(result.city), 
-				$('#accountnumberID').val(result.accountnumber), 
-				$('#addModal').modal('show');
+				success : function(result) {
+					$('#nameID').val(result.name), $('#emailID').val(
+							result.email), $('#cityID').val(result.city), $(
+							'#accountnumberID').val(result.accountnumber), $(
+							'#addModal').modal('show');
 				}
 			});
-		} 
-
-		
+		}
 	</script>
 </body>
 </html>

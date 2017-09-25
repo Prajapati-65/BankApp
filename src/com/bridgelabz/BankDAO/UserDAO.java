@@ -30,7 +30,8 @@ public class UserDAO {
 			pstmt.setString(2, password);
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Execute Statement :");
-			if (resultSet.next()) {
+			if (resultSet.next()) 
+			{
 				return resultSet.getString("name");
 			}
 		} catch (Exception e) {

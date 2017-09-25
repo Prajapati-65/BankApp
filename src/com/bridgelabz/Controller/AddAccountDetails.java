@@ -23,7 +23,7 @@ public class AddAccountDetails extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		String emailid=(String) session.getAttribute("email");
-		int id = BankDAO.id(emailid);
+		String id = BankDAO.id(emailid);
 		session.setAttribute("id", id);
 		
 		resp.setContentType("text/html");

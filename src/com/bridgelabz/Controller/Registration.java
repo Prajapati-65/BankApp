@@ -20,13 +20,12 @@ public class Registration extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		String title = ("<br>" + "Your registration is successful...." + "</br>");
 		out.println(title);
-		
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String number = req.getParameter("mobilenumber");
+		
 		User user = new User();
-
 		user.setName(name);
 		user.setEmail(email);
 		user.setPassword(password);

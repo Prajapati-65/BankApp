@@ -13,8 +13,8 @@ import com.bridgelabz.Model.AccountDetails;
 
 public class BankDAO {
 
-	public static int id(String email) {
-		int accountId;
+	public static String id(String email) {
+		String accountId;
 		try {
 			Connection connection = UserDAO.getConnection();
 			String query = "SELECT id FROM registration WHERE email = ?";
@@ -22,12 +22,12 @@ public class BankDAO {
 			pstmt.setString(1, email);
 			ResultSet rs = (ResultSet) pstmt.executeQuery();
 			rs.next();
-			accountId = rs.getInt("id");
+			accountId = rs.getString("id");
 			return accountId;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return null;
 	}
 
 	public static int saveAccountData(AccountDetails account) {
@@ -40,7 +40,7 @@ public class BankDAO {
 			ps.setString(2, account.getEmail());
 			ps.setString(3, account.getCity());
 			ps.setString(4, account.getAccountnumber());
-			ps.setInt(5, account.getUserId());
+			ps.setString(5, account.getUserId());
 			ps.executeUpdate();
 			status = 1;
 			connection.close();
@@ -51,12 +51,13 @@ public class BankDAO {
 		return status;
 	}
 
-	public static List<AccountDetails> getAllAccount(String city) {
+	public static List<AccountDetails> getAllAccount(String city,String userId) {
 		List<AccountDetails> list = new ArrayList<AccountDetails>();
 		try {
 			Connection con = UserDAO.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from addaccount where city = ?");
+			PreparedStatement ps = con.prepareStatement("select * from addaccount where city = ? and userId = ?");
 			ps.setString(1, city);
+			ps.setString(2, userId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				AccountDetails account = new AccountDetails();
@@ -68,6 +69,7 @@ public class BankDAO {
 				list.add(account);
 			}
 			con.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +115,7 @@ public class BankDAO {
 		}
 		return obj;
 	}
-	
+
 	public static void editAccount(int id) {
 		try {
 			Connection con = UserDAO.getConnection();

@@ -25,15 +25,19 @@ public class Login extends HttpServlet {
 		User user = new User();
 		user.setEmail(email);
 		user.setPassword(password);
-
+		
 		UserDAO userdao = new UserDAO();
 		String name = userdao.loginUser(email, password);
+		
+		
+		
 		System.out.println("User name-->" + name);
 		if (name != "false") {
-
 			HttpSession session = req.getSession();
 			session.setAttribute("name", name);
 			session.setAttribute("email", email);
+			
+			
 			RequestDispatcher dispatcher = req.getRequestDispatcher("homepage.jsp");
 			dispatcher.forward(req, resp);
 		} else {
